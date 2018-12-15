@@ -24,12 +24,15 @@ class App extends React.Component<Props, State> {
     return (
       <div className="App">
         <span>Current iteration: {this.state.currentIteration}</span>
-        <input
-          type="text"
-          value={this.state.step}
-          onChange={this.handleStepChange}
-        />
-        <button onClick={this.handleNextClick}>Next</button>
+        <div>
+          <button onClick={this.handlePrevClick}>Prev</button>
+          <input
+            type="text"
+            value={this.state.step}
+            onChange={this.handleStepChange}
+          />
+          <button onClick={this.handleNextClick}>Next</button>
+        </div>
       </div>
     );
   }
@@ -37,13 +40,14 @@ class App extends React.Component<Props, State> {
   private handleStepChange = (e: any) =>
     this.setState({ step: Number(e.target.value) })
 
-  private handleNextClick = () => {
-    this.setState({
-      currentIteration: this.state.currentIteration + this.state.step,
-      currentPoints: this.state.currentPoints.map((p) =>
-        applyVelocity(p, this.state.step),
-      ),
-    });
+  private handlePrevClick = () => this.updatePoints(-this.state.step);
+  private handleNextClick = () => this.updatePoints(this.state.step);
+
+  private updatePoints = (step: number) => {
+    this.setState((prevState) => ({
+      currentPoints: prevState.currentPoints.map((p) => applyVelocity(p, step)),
+      currentIteration: prevState.currentIteration + step,
+    }));
   }
 }
 
