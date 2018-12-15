@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
-import { testPoints } from "./inputData";
+import { initialPoints } from "./inputData";
 
 ReactDOM.render(
-  <App initialPoints={testPoints} />,
+  <App initialPoints={initialPoints} />,
   document.getElementById("root"),
 );
